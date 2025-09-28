@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HeyCarb — Request a Quote</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Optional basic styling for error messages */
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: -8px;
+      margin-bottom: 10px;
+      display: none;
+    }
+    input.error-field, textarea.error-field {
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">HC</div>
+        <h1>HeyCarb</h1>
+      </div>
+      <nav>
+        <a href="index22.HTML">Home</a>
+        <a href="product22.html">Products</a>
+        <a href="specs22.html">Specifications</a>
+        <a href="application22.html" class="primary">Applications</a>
+        <a href="ques22.html">Get a Quote</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Request a Quote</h2>
+      <p class="muted">Please fill out the form below and our sales team will contact you shortly.</p>
+
+      <form id="quoteForm" novalidate>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <div class="error" id="nameError">Name must be at least 3 characters.</div>
+
+        <input type="email" id="email" name="email" placeholder="Email Address" required>
+        <div class="error" id="emailError">Enter a valid email address.</div>
+
+        <input type="text" id="company" name="company" placeholder="Company Name">
+        <div class="error" id="companyError">Company name is required.</div>
+
+        <input type="password" id="password" name="password" placeholder="Create a Password" required>
+        <div class="error" id="passwordError">Password must be at least 8 characters, include a number and a special character.</div>
+
+        <textarea id="message" name="message" placeholder="Describe your requirements" required></textarea>
+        <div class="error" id="messageError">Message must be at least 20 characters.</div>
+
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+      </form>
+
+      <p class="muted" style="text-align:center; margin-top:12px">Or email us at <b>info@heycarb.com</b></p>
+    </section>
+
+    <footer>
+      <p>© 2025 HeyCarb. All rights reserved.</p>
+      <p class="muted">Designed with ♻️ sustainability in mind.</p>
+    </footer>
+  </div>
+
+  <!-- ✅ JavaScript Validation -->
+  <script>
+    document.getElementById('quoteForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let isValid = true;
+
+      // Reset all errors
+      document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('error-field'));
+
+      // Get form values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const company = document.getElementById('company').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // 1️⃣ Name validation
+      if (name.length < 3) {
+        isValid = false;
+        document.getElementById('nameError').style.display = 'block';
+        document.getElementById('name').classList.add('error-field');
+      }
+
+      // 2️⃣ Email validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        isValid = false;
+        document.getElementById('emailError').style.display = 'block';
+        document.getElementById('email').classList.add('error-field');
+      }
+
+      // 3️⃣ Company name validation (not empty)
+      if (company === "") {
+        isValid = false;
+        document.getElementById('companyError').style.display = 'block';
+        document.getElementById('company').classList.add('error-field');
+      }
+
+      // 4️⃣ Password validation (8+ chars, 1 number, 1 special char)
+      const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
+      if (!passwordPattern.test(password)) {
+        isValid = false;
+        document.getElementById('passwordError').style.display = 'block';
+        document.getElementById('password').classList.add('error-field');
+      }
+
+      // 5️⃣ Message length validation
+      if (message.length < 20) {
+        isValid = false;
+        document.getElementById('messageError').style.display = 'block';
+        document.getElementById('message').classList.add('error-field');
+      }
+
+      // ✅ If all validations pass
+      if (isValid) {
+        alert('✅ Thank you! Your request was captured locally. To actually send this, add a backend or form service.');
+        this.submit();
+      } else {
+        alert('⚠️ Please fix the highlighted errors before submitting.');
+      }
+    });
+  </script>
+</body>
+</html>
